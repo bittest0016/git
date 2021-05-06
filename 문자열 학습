@@ -1,0 +1,101 @@
+자신이 사용하는 프로그래밍 언어가 제공하는 문자열 관련 API를 학습하세요.
+
+예) 자바 개발자라면 String, StringBuilder, StringBuffer 등에 대해 학습하세요.
+
+
+(1) String 
+문자열을 위한 String 이라는 클래스를 별도로 제공
+String 인스턴스는 한번 생성되면 그 값을 읽기만 할 수 있고, 변경할수 없다.
+자바에서 덧셈을 이용해 문자열 결합을 수행할 경우, 기존 문자열의 내용이 변경되는것이 아니라 
+문자가 합쳐진 새로운 String 인스턴스가 생성이된다.
+
+- charAt() 해당 문자열의 특정 인덱스에 해당하는 문자를 반환 / 해당문자열의 길이보다 큰 인덱스나 음수를 전달할 경우 indexOutOfBoundsException 오류 발생
+ex) String str = new String ("JAVA");
+syso("원본문자열" + str);
+for(int i =0; str.length(); i++){
+syso(str.charAt(i));
+}
+
+- compareTo() : 해당 문자열을 인수로 전달된 문자열과 비교/ 문자열을 구분시, 대소문자 구분하여 비교
+두문자열이 같을 경우 0 반환, 해당문자열이 인수로 전달된 문자보다 작으면 음수, 크면 양수 반
+대소문자 구분하지 않기를 원할 경우,  compareToIgnoreCase()  사용
+String str = new String ("abcd");
+str.compareTo("bcdf") = 결과값은 32
+
+-indexOf() : 해당문자열에서 특정문자나 문자열이 처음 등장하는 위치의 인덱스를 반환한다, 만약 문자열에 전달된 문자나 문자열이 포함되잇지 않을경우
+-1 을 반환
+
+-trim() : 문자열의 맨앞과 맨뒤에 포함된 공백문자 제거
+
+-자주쓰이는 메소드
+toLowerCase()와 toUpperCase() : 문자열의 대소문자를 변경
+char	charAt(int index)	특정 위치의 문자 리턴
+boolean	equals(Object object)	두 문자열 비교
+byte[]	getBytes()	byte[]로 리턴
+byte[]	getBytes(Charset charset)	주어진 문자셋으로 인코딩한 byte[]로 리턴
+int	indexOf(String str)	문자열 내에서 주어진 문자열의 위치를 리턴
+int	length()	총 문자의 수를 리턴
+String	replace(CharSequence target, CharSequence replacement)	target 부분을 replacement로 대치한 후 새로운 문자열을 리턴
+String	substring(int beginIndex)	beginIndex 위치에서 끝까지 잘라낸 새로운 문자열 리턴
+String	substring(int beginIndex, int endIndex)	beginIndex 위치에서 endIndex 전까지 잘라낸 새로운 문자열을 리턴
+String	toLowerCase()	알파벳 소문자로 변환한 새로운 문자열 리턴
+String	toUpperCase()	알파벳 대문자로 변환한 새로운 문자열 리턴
+String	trim()	앞뒤 공백을 제거한 새로운 문자열 리턴
+String	valueOf(int i) valueOf(double d)	기본 타입값을 문자열로 리턴
+
+
+
+
+(2) Stringbuilder/stringBuffer
+String 클래스가 문자열을 생성자로 넣어 인스턴스를 한번생성하고 나면 인스턴스가 가진 문자열값을 
+변경하지 못하는 단점을 보완한 클래스 / 두개의 클래스의 용도는 같지만, 다른점은
+StringBuffer는 여러 곳에서 동시에 같은 문자열 인스턴스에 접근할 때 중복 점유를 막을 수 있는 장치 보유
+
+append(String str)
+> 문자열 추가
+
+capacity()
+> String 클래스와 다르게 여유있게 잡아둔 char[]배열 사이즈 정보 반환
+
+delete(int beginIndex, int EndIndex)
+> 매개변수로 전달받은 인덱스 사이의 문자열 제거
+
+deleteCharAt(int deleteIndex)
+> 특정 인덱스의 한 문자만 삭제
+
+insert(int insertIndex, String str)
+> 특정 위치에 문자열 삽입
+
+reverse()
+> 문자열을 거꾸로 뒤집기
+
+setCharAt(int index, char ch)
+> 특정 위치의 문자 변경
+
+setLength(int len)
+> 문자열 길이 조정(현재 문자열보다 길게 조정하면 공백, 짧게 조정하면 나머지 삭제)
+
+trimToSize()
+> 문자열이 저장된 char[] 배열 사이즈를 현재 문자열 길이와 동일하게 조정 
+
+ex) 
+StringBuilder sb = new StringBuilder("Hello");
+
+sb.append(" Java"); // Hello Java
+
+sb.capacity();	// length는 9이지만 더 큰 수가 나옴
+
+sb.delete(6, 9);	// Helloa
+
+sb.delete(6);	// Hello
+
+sb.insert(6, "Java");	// Hello Java
+
+sb.reverse();	// avaJ olleH
+
+(3) stringBuffer
+String 클래스와 다르게 , 인스턴스 생성후, 그값은 변경 할수도 있고, 추가 할수도 있다.
+buffer 라고 하는 독립적인 공간을 가진다. 기본값은 16개의 문자를 저장할수있는 크기, 생성자를 통해 그 크기를
+별도로 설정 가능하다. string 에서 + 로 문자를 결합할 시, 공간의 낭비 뿐만아니라 속도 또한 매우 느려진다.
+그러나 Stringbuffer 인스턴스를 사용하면, 바로 문자열 추가가 가능하여 공간낭비도 없고, 속도도 매우 빨라진다.
+
